@@ -33,6 +33,7 @@ void ordenacao(int n) {
             fseek(arq, desloc, SEEK_SET);
             fread(&ax, sizeof(information), 1, arq);
             dados.hits++;
+            dados.hits++;
 
             j = i;
 
@@ -40,30 +41,30 @@ void ordenacao(int n) {
             fseek(arq, desloc, SEEK_SET);
             fread(&auxiliar, sizeof(information), 1, arq);
             dados.hits++;
+            dados.hits++;
 
             while (auxiliar.key > ax.key) {
                 dados.comparisons++;
-
                 desloc = (j) * sizeof(information);
-
                 fseek(arq, desloc, SEEK_SET);
                 fwrite(&auxiliar, sizeof(information), 1, arq);
                 dados.hits++;
-
+                dados.hits++;
                 j = j - h;
                 if (j < h) {
                     dados.comparisons++;
                     break;
                 }
-
                 desloc = (j - h) * sizeof(information);
                 fseek(arq, desloc, SEEK_SET);
                 fread(&auxiliar, sizeof(information), 1, arq);
+                dados.hits++;
                 dados.hits++;
             }
             desloc = (j) * sizeof(information);
             fseek(arq, desloc, SEEK_SET);
             fwrite(&ax, sizeof(information), 1, arq);
+            dados.hits++;
             dados.hits++;
         }
     } while (h != 1);
@@ -106,11 +107,13 @@ void sequential_access(int n, int key) {
     cont = 0;
     pos = 0;
     fseek(arq, 0 * sizeof(information), SEEK_SET);
+    dados.hits++;
     while (fread(&x, sizeof(x), 1, arq) == 1) {
         cont++;
         dados.hits++;
         if (cont % stack_of_items == 1) {
             tab[pos].key = x.key;
+            dados.comparisons++;
             tab[pos].position = pos + 1;
             pos++;
         }
@@ -138,12 +141,12 @@ void sequential_access(int n, int key) {
             quantitens = stack_of_items;
         else {
             fseek(arq, 0, SEEK_END);
+            dados.hits++;
             quantitens = (ftell(arq) / sizeof(information)) % stack_of_items;
         }
         desloc = (tab[i - 1].position - 1) * stack_of_items * sizeof(information);
         fseek(arq, desloc, SEEK_SET);
         fread(&pagina[0], sizeof(information), stack_of_items, arq);
-
         dados.hits++;
 
         for (i = 0; i < quantitens; i++) {

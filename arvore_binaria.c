@@ -70,9 +70,11 @@ void makeTree(int n) {
             if (tempNode.data.key > checkNode.data.key) {
                 if (checkNode.right == -1) {
                     checkNode.right = i;
+                    dados.comparisons++;
                     break;
                 } else {
                     indice = checkNode.right;
+                    dados.comparisons++;
                 }
             }
 
@@ -80,9 +82,11 @@ void makeTree(int n) {
             else {
                 if (checkNode.left == -1) {
                     checkNode.left = i;
+                    dados.comparisons++;
                     break;
                 } else {
                     indice = checkNode.left;
+                    dados.comparisons++;
                 }
             }
         }
@@ -135,13 +139,16 @@ void arvore_bin(int n, int key) {
         // In case of find the correct key
         if (key == checkNode.data.key) {
             get = true;
+            dados.comparisons++;
             break;
         }
 
         // In case of actual key is bigger than choosed
         else if (key > checkNode.data.key) {
             // In case of a leaf node
+            dados.comparisons++;
             if (checkNode.right == -1) {
+
                 break;
             } else {
                 indice = checkNode.right;

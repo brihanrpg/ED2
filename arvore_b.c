@@ -75,27 +75,34 @@ int b_tree_search(information *x, Nodo ap) {
     
     while (i < ap->n && x->key > ap->r[i-1].key) {
         i++;
-        dados.hits++; 
+       dados.comparisons++; 
     } 
     
     if(i < ap->n && !(x->key > ap->r[i-1].key)) {
         i++;
-        dados.hits++; 
+        dados.comparisons++;
     }
     
-    dados.comparisons++;
+    
     
     if (x->key == ap->r[i-1].key) {
         *x = ap->r[i-1];
+        dados.comparisons++;
         return 1;
     }
     
-    dados.comparisons++;
+   
     
-    if (x->key < ap->r[i-1].key)
+    if (x->key < ap->r[i-1].key){
+        dados.comparisons++;
         return b_tree_search(x, ap->filhos[i-1]);
-    else
+    }
+        
+    else{
         return b_tree_search(x, ap->filhos[i]);
+        dados.comparisons++;
+    }
+        
 }
 
 void insere(information reg, Nodo *ap) {
@@ -124,6 +131,7 @@ void insere_na_pagina(Nodo ap, information reg, Nodo apDir) {
         
         if (reg.key >= ap->r[k - 1].key) {
             nao_achou_posicao = 0;
+            dados.comparisons++;
             break;
         }
         
@@ -155,28 +163,30 @@ void ins(information reg, Nodo ap, short *cresceu, information *reg_retorno, Nod
     
     while (i < ap->n && reg.key > ap->r[i - 1].key) {
         i++;
-        dados.hits++; 
+        dados.comparisons++; 
     } 
     
     dados.comparisons++;
     
     if(i < ap->n && !(reg.key > ap->r[i - 1].key)) {
         i++;
-        dados.hits++; 
+        dados.comparisons++; 
     }
     
     if (reg.key == ap->r[i - 1].key) {
         printf("information ja esta presente!\n");
         *cresceu = 0;
+        dados.comparisons++;
         return;
     }
     
     if (reg.key < ap->r[i - 1].key){
         i--;
+        dados.comparisons++;
     }
     
     ins(reg, ap->filhos[i], cresceu, reg_retorno, ap_retorno);
-    dados.comparisons++;
+
     
     if (!(*cresceu))
         return;
@@ -185,6 +195,7 @@ void ins(information reg, Nodo ap, short *cresceu, information *reg_retorno, Nod
     
     if (ap->n < M + M) {
         insere_na_pagina(ap, *reg_retorno, *ap_retorno);
+        dados.comparisons++;
         *cresceu = 0;
         return;
     }
@@ -194,7 +205,7 @@ void ins(information reg, Nodo ap, short *cresceu, information *reg_retorno, Nod
     ap_temp->n = 0;
     ap_temp->filhos[0] = NULL;
     
-    dados.comparisons++;
+   
     
     if (i < M + 1) {
         insere_na_pagina(ap_temp, ap->r[M + M - 1], ap->filhos[M + M]);
@@ -213,5 +224,4 @@ void ins(information reg, Nodo ap, short *cresceu, information *reg_retorno, Nod
     *reg_retorno = ap->r[M];
     *ap_retorno = ap_temp;
     
-    dados.comparisons++;
 }

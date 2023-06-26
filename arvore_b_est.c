@@ -123,12 +123,13 @@ void insert_external_page(Nodo2 ap, information reg) {
     while((i>0)&&(didnthit==true)){
         dados.comparisons++;
         if(reg.key>= ap->UU.Ex.r[i-1].key){
+            dados.comparisons++;
             didnthit= false;
             break;
         }
         ap->UU.Ex.r[i] = ap->UU.Ex.r[i-1];
         i--;
-        dados.comparisons++;
+
         if (i<1) 
             didnthit= false;
     }
@@ -158,6 +159,7 @@ void insert_internal_page(Nodo2 ap, int key, Nodo2 apDir) {
     ap->UU.In.keys[i]= key;
     ap->UU.In.sons[i+ 1]= apDir;
     ap->UU.In.ni++;
+    dados.comparisons++;
 }
 
          
@@ -194,9 +196,11 @@ void ins_est(information reg, Nodo2 ap, int *adds, int *reg_retorno, Nodo2 *ap_r
             return;
         }
         dados.comparisons++;
-        if (reg.key < ap->UU.Ex.r[i - 1].key)
+        if (reg.key < ap->UU.Ex.r[i - 1].key){
             i--;
-        dados.comparisons++;
+            dados.comparisons++;
+        }
+
         if (i < M + 1) {
             // coloca o information mais a direita na nova p�gina
             insert_external_page(aux, ap->UU.Ex.r[M + M - 1]);
@@ -215,6 +219,7 @@ void ins_est(information reg, Nodo2 ap, int *adds, int *reg_retorno, Nodo2 *ap_r
         ap->UU.Ex.ne = M + 1;
         // sobe o pai
         *reg_retorno = ap->UU.Ex.r[M].key;
+        dados.comparisons++;
         *ap_retorno = aux;
         *adds= true;
         return;
@@ -224,19 +229,23 @@ void ins_est(information reg, Nodo2 ap, int *adds, int *reg_retorno, Nodo2 *ap_r
         i++;
         dados.comparisons++;
     }
-    dados.comparisons++;
+    
     if( i < ap->UU.In.ni && !(reg.key > ap->UU.In.keys[i - 1])){
         dados.comparisons++;
     }
-    dados.comparisons++;
-    if (reg.key <= ap->UU.In.keys[i - 1]) i--;
+    
+    if (reg.key <= ap->UU.In.keys[i - 1]){
+        i--;
+        dados.comparisons++;
+    } 
     ins_est(reg, ap->UU.In.sons[i],adds, reg_retorno, ap_retorno);
     dados.comparisons++;
     if (!(*adds)) return;
-    dados.comparisons++;
+    
     if (ap->UU.In.ni < M + M) {
         insert_internal_page(ap, *reg_retorno, *ap_retorno);
         *adds= 0;
+        dados.comparisons++;
         return;
     }
     // Pagina tem que ser dividida
@@ -255,7 +264,6 @@ void ins_est(information reg, Nodo2 ap, int *adds, int *reg_retorno, Nodo2 *ap_r
     j=M + 2;
     while (j <= M + M){
         insert_internal_page(aux, ap->UU.In.keys[j - 1], ap->UU.In.sons[j]);
-        dados.comparisons++;
         j++;
     }
     ap->UU.In.ni = M;
@@ -264,4 +272,5 @@ void ins_est(information reg, Nodo2 ap, int *adds, int *reg_retorno, Nodo2 *ap_r
     *reg_retorno = ap->UU.In.keys[M];
     *ap_retorno = aux;
     *adds= true;
+    dados.comparisons++;
 }
