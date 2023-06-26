@@ -1,5 +1,5 @@
 #include "funcoes.h"
-
+#include <math.h>
 #ifndef arvore_b_est_h
 #define arvore_b_est_h
 

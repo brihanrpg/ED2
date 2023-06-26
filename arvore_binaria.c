@@ -1,24 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include <stdbool.h>
+#include <math.h>
 #include "arvore_binaria.h"
 
 void makeTree(int n) {
-    FILE *arq1 = fopen("informations.bin", "rb");
-    if (arq1 == NULL) {
+    // Open the used files
+    FILE *arq1, *arq2;
+
+    arq1 = fopen("informations.bin", "rb");
+    arq2 = fopen("dados.bin", "r+b");
+
+    if (arq1 == NULL)
         exit(1);
-    }
-    
-    FILE *arq2 = fopen("dados.bin", "w+b");
+
+    arq2 = fopen("dados.bin", "w+b");
+
+    // In case of no finded file
     if (arq2 == NULL) {
-        exit(1);
+        arq2 = fopen("dados.bin", "wb");
+        fclose(arq2);
+        arq2 = fopen("dados.bin", "r+b");
+        if (arq2 == NULL)
+            exit(1);
     }
 
     information aux;
     Node tempNode, checkNode;
 
-    fseek(arq1, 0, SEEK_SET);
+    fseek(arq1, 0 * sizeof(information), SEEK_SET);
     fread(&aux, sizeof(information), 1, arq1);
     dados.hits++;
 
@@ -26,11 +38,12 @@ void makeTree(int n) {
     tempNode.left = -1;
     tempNode.right = -1;
 
-    fseek(arq2, 0, SEEK_SET);
+    fseek(arq2, 0 * sizeof(Node), SEEK_SET);
     fwrite(&tempNode, sizeof(Node), 1, arq2);
     dados.hits++;
 
     for (int i = 1; i < n; i++) {
+        // Parse the file
         fseek(arq1, i * sizeof(information), SEEK_SET);
         fread(&aux, sizeof(information), 1, arq1);
         dados.hits++;
@@ -39,32 +52,35 @@ void makeTree(int n) {
         tempNode.left = -1;
         tempNode.right = -1;
 
+        // Write the data at tree
         fseek(arq2, i * sizeof(Node), SEEK_SET);
         fwrite(&tempNode, sizeof(Node), 1, arq2);
         dados.hits++;
 
         int indice = 0;
-        bool found = false;
 
-        while (!found) {
+        // Set the sons
+        while (1) {
             fseek(arq2, indice * sizeof(Node), SEEK_SET);
             fread(&checkNode, sizeof(Node), 1, arq2);
             dados.hits++;
             dados.comparisons++;
 
+            // In case of son bigger than father
             if (tempNode.data.key > checkNode.data.key) {
-                dados.comparisons++;
                 if (checkNode.right == -1) {
                     checkNode.right = i;
-                    found = true;
+                    break;
                 } else {
                     indice = checkNode.right;
                 }
-            } else {
-                dados.comparisons++;
+            }
+
+            // In case of son smaller than father
+            else {
                 if (checkNode.left == -1) {
                     checkNode.left = i;
-                    found = true;
+                    break;
                 } else {
                     indice = checkNode.left;
                 }
@@ -75,21 +91,27 @@ void makeTree(int n) {
         fwrite(&checkNode, sizeof(Node), 1, arq2);
         dados.hits++;
     }
-
-    fclose(arq1);
     fclose(arq2);
 }
 
 void arvore_bin(int n, int key) {
-    clock_t time_begin_ind = clock();
+    // Initialize the clock
+    clock_t time_begin_ind, time_end_ind;
+    time_begin_ind = clock();
+
+    // Make the tree to search
     makeTree(n);
-    clock_t time_end_ind = clock();
+
+    time_end_ind = clock();
 
     printf("Numero de transferencias: %lld\n", dados.hits);
-    printf("Numero de comparacoes: %lld\n", dados.comparisons);
-    printf("Tempo: %lfs\n", (double)(time_end_ind - time_begin_ind) / CLOCKS_PER_SEC);
+    printf("Numero de comparisons: %lld\n", dados.comparisons);
+    dados.time = fabs((double)(time_end_ind - time_begin_ind) / CLOCKS_PER_SEC);
+    printf("Tempo : %lfs\n", dados.time);
 
     time_begin_ind = clock();
+
+    // Initialize the datas of search
     dados.hits = 0;
     dados.comparisons = 0;
 
@@ -100,26 +122,35 @@ void arvore_bin(int n, int key) {
     }
 
     int indice = 0;
-    bool found = false;
+    _Bool get = false;
     Node checkNode;
 
-    while (!found) {
+    while (1) {
         fseek(arq, indice * sizeof(Node), SEEK_SET);
         fread(&checkNode, sizeof(Node), 1, arq);
         dados.hits++;
+
         dados.comparisons++;
 
+        // In case of find the correct key
         if (key == checkNode.data.key) {
-            found = true;
-        } else if (key > checkNode.data.key) {
-            dados.comparisons++;
+            get = true;
+            break;
+        }
+
+        // In case of actual key is bigger than choosed
+        else if (key > checkNode.data.key) {
+            // In case of a leaf node
             if (checkNode.right == -1) {
                 break;
             } else {
                 indice = checkNode.right;
             }
-        } else {
-            dados.comparisons++;
+        }
+
+        // In case of actual key is smaller than choosed
+        else {
+            // In case of a leaf node
             if (checkNode.left == -1) {
                 break;
             } else {
@@ -128,16 +159,22 @@ void arvore_bin(int n, int key) {
         }
     }
 
+    // Turn off the clock
     time_end_ind = clock();
 
-    if (found) {
-        printf("\nkey : %d\n dado1 : %ld\n dado2 : %s\n dado3 : %s\n", checkNode.data.key, checkNode.data.dado1, checkNode.data.dado2, checkNode.data.dado3);
+    // Successful search
+    if (get) {
+        printf("\nkey : %d\n dado1 : %ld\n dado2 : %s\n dado3 : %s\n", checkNode.data.key, checkNode.data.dado1,
+               checkNode.data.dado2, checkNode.data.dado3);
         printf("Numero de transferencias: %lld\n", dados.hits);
-        printf("Numero de comparacoes: %lld\n", dados.comparisons);
-        printf("Tempo: %lfs\n", (double)(time_end_ind - time_begin_ind) / CLOCKS_PER_SEC);
-    } else {
-        printf("key nao encontrada!\n");
+        printf("Numero de comparisons: %lld\n", dados.comparisons);
+        dados.time = fabs((double)(time_end_ind - time_begin_ind) / CLOCKS_PER_SEC);
+        printf("Tempo : %lfs\n", dados.time);
     }
+    // Wrong search
+    else
+        printf("key nao encontrada!\n");
 
     fclose(arq);
 }
+

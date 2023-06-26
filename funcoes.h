@@ -4,7 +4,7 @@
 #include <limits.h>
 #include <time.h>
 #include <stdbool.h>
-
+#include <math.h>
 
 #ifndef funcoes_h
 #define funcoes_h

@@ -1,80 +1,83 @@
 #include "funcoes.h"
 
-void create_file(int amount, int situacao, int key) {
-    int i, position;
+
+void create_file(int amount, int situacao, int key){  //Fun��o de preencimento de arquivo
+    int j,i,position;
 
     clock_t time_begin_ind, time_end_ind;
-    time_begin_ind = clock();  // Inicia a contagem de tempo
 
-    if (key) {
+    time_begin_ind = clock();
+
+    if (key)
         printf("keys of informations:\n");
-    }
-
-    FILE *arquivo = fopen("informations.bin", "wb");  // Abre o arquivo binário para escrita
-
+    FILE *arquivo = fopen("informations.bin","wb");   //Arquivo binario aberto para escrita
     information info;
     info.dado1 = 0;
-
-    // Preenche o campo "dado2" com caracteres aleatórios
-    for (int j = 0; j < 1000; j++) {
-        info.dado2[j] = 'a' + (char)(rand() % 26);
+    for (j = 0; j < 1000; j++) {
+        info.dado2[j] = 'a'+ (char)(rand()%26);;   //preenchimento do information "dado2"
     }
     info.dado2[1000] = '\0';
-
-    // Preenche o campo "dado3" com caracteres aleatórios
-    for (int j = 0; j < 5000; j++) {
-        info.dado3[j] = 'a' + (char)(rand() % 26);
+    for (j = 0; j < 5000; j++) {
+        info.dado3[j] = 'a'+ (char)(rand()%26);   //preenchimento do information "dado3"
     }
     info.dado3[5000] = '\0';
-
-    switch (situacao) {
+    switch(situacao) {
         case 1:
-            for (i = 1; i <= amount; i++) {
+            for ( i = 1; i <= amount; i++) {  //A organiza��o dos dados � crescente  
                 info.key = i;
-                if (key) {
+                            dados.comparisons++;
+
+                if (key)
                     printf("%d ", i);
-                }
-                fwrite(&info, sizeof(information), 1, arquivo);  // Escreve a informação no arquivo
+                fwrite(&info, sizeof(information), 1, arquivo);
+                dados.hits++;
             }
-            break;
+        break;
         case 2:
-            for (i = amount; i >= 1; i--) {
+            for (i = amount; i >= 1; i--) {  //A organiza��o dos dados � decrescente 
                 info.key = i;
-                if (key) {
+                            dados.comparisons++;
+
+                if (key) 
                     printf("%d ", i);
-                }
-                fwrite(&info, sizeof(information), 1, arquivo);  // Escreve a informação no arquivo
+                fwrite(&info, sizeof(information), 1, arquivo);
+                dados.hits++;
             }
-            break;
+        break;
         case 3:
             srand(time(NULL));
-            char *score = malloc(sizeof(char) * (amount + 1));
-            memset(score, '0', amount * sizeof(char));
-            score[amount] = '\0';
-
-            i = 1;
-            while (i <= amount) {
+            char *score = malloc(sizeof(char) * amount + 1);
+            for (i = 1; i <= amount; i++){
+                score[i] = '0';
+            }
+            i=1;
+            while(i <= amount){
                 position = rand() % amount + 1;
-                if (score[position - 1] == '0') {
-                    score[position - 1] = '1';
-                    info.key = position;
-                    printf("%d ", position);
-                    fwrite(&info, sizeof(information), 1, arquivo);  // Escreve a informação no arquivo
-                    i++;
+                            dados.comparisons++;
+
+                if(score[position] == '0') { 
+                    score[position] = '1'; 
+                    info.key = position; 
+                    printf("%d ",position);
+                    fwrite(&info, sizeof(information), 1, arquivo);
+                    dados.hits++;
+                    i++; 
                 }
             }
-
             free(score);
-            break;
+        break;
         default:
-            printf("\nTeste inexistente!\n");
-            break;
+            printf("\n Teste inexistente !\n");
+        break;
     }
 
-    fclose(arquivo);  // Fecha o arquivo
+    time_end_ind = clock();
 
-    time_end_ind = clock();  // Finaliza a contagem de tempo
-    printf("Numero de transferencias: %d\n", amount);
-    printf("Numero de comparacoes: %d\n", amount);
-    printf("Tempo: %lfs\n", (double)(time_end_ind - time_begin_ind) / CLOCKS_PER_SEC);  // Calcula e exibe o tempo de execução
+    //printf("\nkey : %d\n dado1 : %ld\n dado2 : %s\n dado3 : %s\n", info.key, info.dado1,info.dado2,info.dado3);
+        printf("Numero de transferencias: %lld\n", dados.hits);
+        printf("Numero de comparisons: %lld\n", dados.comparisons);
+        dados.time = fabs((double)(time_end_ind - time_begin_ind) / CLOCKS_PER_SEC);
+        printf("Tempo : %lfs\n",dados.time);
+
+    fclose(arquivo);
 }
