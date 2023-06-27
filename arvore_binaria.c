@@ -70,11 +70,9 @@ void makeTree(int n) {
             if (tempNode.data.key > checkNode.data.key) {
                 if (checkNode.right == -1) {
                     checkNode.right = i;
-                    dados.comparisons++;
                     break;
                 } else {
                     indice = checkNode.right;
-                    dados.comparisons++;
                 }
             }
 
@@ -82,11 +80,9 @@ void makeTree(int n) {
             else {
                 if (checkNode.left == -1) {
                     checkNode.left = i;
-                    dados.comparisons++;
                     break;
                 } else {
                     indice = checkNode.left;
-                    dados.comparisons++;
                 }
             }
         }
@@ -115,9 +111,7 @@ void arvore_bin(int n, int key) {
 
     time_begin_ind = clock();
 
-    // Initialize the datas of search
-    dados.hits = 0;
-    dados.comparisons = 0;
+
 
     FILE *arq = fopen("dados.bin", "rb");
     if (arq == NULL) {
@@ -134,7 +128,7 @@ void arvore_bin(int n, int key) {
         fread(&checkNode, sizeof(Node), 1, arq);
         dados.hits++;
 
-        dados.comparisons++;
+        
 
         // In case of find the correct key
         if (key == checkNode.data.key) {
@@ -148,7 +142,6 @@ void arvore_bin(int n, int key) {
             // In case of a leaf node
             dados.comparisons++;
             if (checkNode.right == -1) {
-
                 break;
             } else {
                 indice = checkNode.right;

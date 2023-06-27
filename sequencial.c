@@ -33,14 +33,11 @@ void ordenacao(int n) {
             fseek(arq, desloc, SEEK_SET);
             fread(&ax, sizeof(information), 1, arq);
             dados.hits++;
-            dados.hits++;
-
             j = i;
 
             desloc = (j - h) * sizeof(information);
             fseek(arq, desloc, SEEK_SET);
             fread(&auxiliar, sizeof(information), 1, arq);
-            dados.hits++;
             dados.hits++;
 
             while (auxiliar.key > ax.key) {
@@ -49,22 +46,18 @@ void ordenacao(int n) {
                 fseek(arq, desloc, SEEK_SET);
                 fwrite(&auxiliar, sizeof(information), 1, arq);
                 dados.hits++;
-                dados.hits++;
                 j = j - h;
                 if (j < h) {
-                    dados.comparisons++;
                     break;
                 }
                 desloc = (j - h) * sizeof(information);
                 fseek(arq, desloc, SEEK_SET);
                 fread(&auxiliar, sizeof(information), 1, arq);
                 dados.hits++;
-                dados.hits++;
             }
             desloc = (j) * sizeof(information);
             fseek(arq, desloc, SEEK_SET);
             fwrite(&ax, sizeof(information), 1, arq);
-            dados.hits++;
             dados.hits++;
         }
     } while (h != 1);
@@ -118,11 +111,6 @@ void sequential_access(int n, int key) {
             pos++;
         }
     }
-
-    //Initialize the datas of search
-    dados.hits = 0;
-    dados.comparisons = 0;
-
     _Bool get = false;
 
     information pagina[stack_of_items];

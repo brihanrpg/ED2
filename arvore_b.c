@@ -14,9 +14,9 @@ void tree_b(int amount, int key) {
         return;
     }
     information* aux = (information*)malloc(amount * sizeof(information));
-    dados.hits = 0;
+
     while (fread(aux, sizeof(information), amount, arquivo)) {
-        dados.hits += amount;
+        dados.hits += 1;
         i = 0;
         while (i < amount) {
             insere(aux[i], &tree);
@@ -30,8 +30,7 @@ void tree_b(int amount, int key) {
     printf("Numero de comparisons: %lld\n", dados.comparisons);
     dados.time = fabs((double)(time_end_ind - time_begin_ind) / CLOCKS_PER_SEC);
     printf("Tempo: %lf segundos\n", dados.time);
-    dados.hits = 0;
-    dados.comparisons = 0;
+
 
     time_begin_ind = clock();
 

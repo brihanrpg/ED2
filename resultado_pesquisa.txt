@@ -1,13 +1,13 @@
-Key = 36
+Key = 59
 N = 100
 Pesquisa Sequencial:
-Hits: 1
-Comparisons: 5
-Tempo: 0.020000 segundos
+Hits: 1228
+Comparisons: 117
+Tempo: 0.030000 segundos
 
 Pesquisa Binária:
-Hits: 36
-Comparisons: 72
+Hits: 5308
+Comparisons: 5009
 Tempo: 0.023000 segundos
 
 Árvore B:
@@ -18,107 +18,63 @@ Tempo: 0.003000 segundos
 Árvore B*:
 Hits: 0
 Comparisons: 9
-Tempo: 0.037000 segundos
+Tempo: 0.043000 segundos
 
-Key = 99
+Key = 66
 N = 100
 Pesquisa Sequencial:
-Hits: 2
-Comparisons: 10
-Tempo: 0.027000 segundos
+Hits: 1128
+Comparisons: 18
+Tempo: 0.035000 segundos
 
 Pesquisa Binária:
-Hits: 99
-Comparisons: 198
-Tempo: 0.023000 segundos
+Hits: 5315
+Comparisons: 5016
+Tempo: 0.016000 segundos
+
+Árvore B:
+Hits: 0
+Comparisons: 0
+Tempo: 0.000000 segundos
+
+Árvore B*:
+Hits: 0
+Comparisons: 10
+Tempo: 0.044000 segundos
+
+Key = 43
+N = 100
+Pesquisa Sequencial:
+Hits: 1128
+Comparisons: 16
+Tempo: 0.034000 segundos
+
+Pesquisa Binária:
+Hits: 5292
+Comparisons: 4993
+Tempo: 0.020000 segundos
 
 Árvore B:
 Hits: 0
 Comparisons: 0
 Tempo: 0.007000 segundos
-
-Árvore B*:
-Hits: 0
-Comparisons: 12
-Tempo: 0.036000 segundos
-
-Key = 5
-N = 100
-Pesquisa Sequencial:
-Hits: 1
-Comparisons: 2
-Tempo: 0.031000 segundos
-
-Pesquisa Binária:
-Hits: 5
-Comparisons: 10
-Tempo: 0.019000 segundos
-
-Árvore B:
-Hits: 0
-Comparisons: 0
-Tempo: 0.004000 segundos
-
-Árvore B*:
-Hits: 0
-Comparisons: 9
-Tempo: 0.033000 segundos
-
-Key = 8
-N = 100
-Pesquisa Sequencial:
-Hits: 1
-Comparisons: 2
-Tempo: 0.069000 segundos
-
-Pesquisa Binária:
-Hits: 8
-Comparisons: 16
-Tempo: 0.052000 segundos
-
-Árvore B:
-Hits: 0
-Comparisons: 0
-Tempo: 0.010000 segundos
-
-Árvore B*:
-Hits: 0
-Comparisons: 9
-Tempo: 0.055000 segundos
-
-Key = 37
-N = 100
-Pesquisa Sequencial:
-Hits: 1
-Comparisons: 5
-Tempo: 0.003000 segundos
-
-Pesquisa Binária:
-Hits: 37
-Comparisons: 74
-Tempo: 0.017000 segundos
-
-Árvore B:
-Hits: 0
-Comparisons: 0
-Tempo: 0.010000 segundos
 
 Árvore B*:
 Hits: 0
 Comparisons: 8
-Tempo: 0.035000 segundos
+Tempo: 0.058000 segundos
 
-Key = 59
+Key = 39
 N = 100
 Pesquisa Sequencial:
-Hits: 1
-Comparisons: 7
+Hits: 1128
+Comparisons: 15
 Tempo: 0.032000 segundos
 
 Pesquisa Binária:
-Hits: 59
-Comparisons: 118
-Tempo: 0.047000 segundos
+Hits: 5288
+Comparisons: 4989
+Tempo: 0.092000 segundos
 
 Árvore B:
 Hits: 0
@@ -128,63 +84,85 @@ Tempo: 0.004000 segundos
 Árvore B*:
 Hits: 0
 Comparisons: 9
-Tempo: 0.050000 segundos
+Tempo: 0.070000 segundos
 
-Key = 73
+Key = 99
 N = 100
 Pesquisa Sequencial:
-Hits: 1
-Comparisons: 9
-Tempo: 0.027000 segundos
+Hits: 1129
+Comparisons: 20
+Tempo: 0.049000 segundos
 
 Pesquisa Binária:
-Hits: 73
-Comparisons: 146
-Tempo: 0.026000 segundos
+Hits: 5348
+Comparisons: 5049
+Tempo: 0.025000 segundos
 
 Árvore B:
 Hits: 0
 Comparisons: 0
-Tempo: 0.003000 segundos
+Tempo: 0.014000 segundos
+
+Árvore B*:
+Hits: 0
+Comparisons: 12
+Tempo: 0.066000 segundos
+
+Key = 91
+N = 100
+Pesquisa Sequencial:
+Hits: 1129
+Comparisons: 20
+Tempo: 0.042000 segundos
+
+Pesquisa Binária:
+Hits: 5340
+Comparisons: 5041
+Tempo: 0.021000 segundos
+
+Árvore B:
+Hits: 0
+Comparisons: 0
+Tempo: 0.005000 segundos
 
 Árvore B*:
 Hits: 0
 Comparisons: 10
 Tempo: 0.055000 segundos
 
-Key = 44
+Key = 48
 N = 100
 Pesquisa Sequencial:
-Hits: 1
-Comparisons: 6
-Tempo: 0.023000 segundos
+Hits: 1128
+Comparisons: 16
+Tempo: 0.036000 segundos
 
 Pesquisa Binária:
-Hits: 44
-Comparisons: 88
-Tempo: 0.024000 segundos
+Hits: 5297
+Comparisons: 4998
+Tempo: 0.035000 segundos
 
 Árvore B:
 Hits: 0
-Comparisons: 2
-Tempo: 0.044000 segundos
+Comparisons: 0
+Tempo: 0.012000 segundos
 
 Árvore B*:
 Hits: 0
 Comparisons: 9
-Tempo: 0.050000 segundos
+Tempo: 0.059000 segundos
 
-Key = 81
+Key = 80
 N = 100
 Pesquisa Sequencial:
-Hits: 1
-Comparisons: 10
-Tempo: 0.007000 segundos
+Hits: 1128
+Comparisons: 19
+Tempo: 0.044000 segundos
 
 Pesquisa Binária:
-Hits: 81
-Comparisons: 162
-Tempo: 0.028000 segundos
+Hits: 5329
+Comparisons: 5030
+Tempo: 0.053000 segundos
 
 Árvore B:
 Hits: 0
@@ -194,49 +172,71 @@ Tempo: 0.005000 segundos
 Árvore B*:
 Hits: 0
 Comparisons: 11
+Tempo: 0.046000 segundos
+
+Key = 13
+N = 100
+Pesquisa Sequencial:
+Hits: 1128
+Comparisons: 13
+Tempo: 0.040000 segundos
+
+Pesquisa Binária:
+Hits: 5262
+Comparisons: 4963
+Tempo: 0.024000 segundos
+
+Árvore B:
+Hits: 0
+Comparisons: 0
+Tempo: 0.003000 segundos
+
+Árvore B*:
+Hits: 0
+Comparisons: 8
+Tempo: 0.058000 segundos
+
+Key = 81
+N = 100
+Pesquisa Sequencial:
+Hits: 1128
+Comparisons: 20
 Tempo: 0.041000 segundos
 
-Key = 11
-N = 100
-Pesquisa Sequencial:
-Hits: 1
-Comparisons: 3
-Tempo: 0.026000 segundos
-
 Pesquisa Binária:
-Hits: 11
-Comparisons: 22
-Tempo: 0.022000 segundos
-
-Árvore B:
-Hits: 0
-Comparisons: 0
-Tempo: 0.004000 segundos
-
-Árvore B*:
-Hits: 0
-Comparisons: 9
-Tempo: 0.047000 segundos
-
-Key = 35
-N = 100
-Pesquisa Sequencial:
-Hits: 1
-Comparisons: 5
+Hits: 5330
+Comparisons: 5031
 Tempo: 0.027000 segundos
 
+Árvore B:
+Hits: 0
+Comparisons: 0
+Tempo: 0.005000 segundos
+
+Árvore B*:
+Hits: 0
+Comparisons: 11
+Tempo: 0.054000 segundos
+
+Key = 4
+N = 100
+Pesquisa Sequencial:
+Hits: 1128
+Comparisons: 12
+Tempo: 0.036000 segundos
+
 Pesquisa Binária:
-Hits: 35
-Comparisons: 70
-Tempo: 0.030000 segundos
+Hits: 5253
+Comparisons: 4954
+Tempo: 0.025000 segundos
 
 Árvore B:
 Hits: 0
 Comparisons: 0
-Tempo: 0.007000 segundos
+Tempo: 0.005000 segundos
 
 Árvore B*:
 Hits: 0
-Comparisons: 9
-Tempo: 0.046000 segundos
+Comparisons: 8
+Tempo: 0.055000 segundos
 
